@@ -17,11 +17,14 @@ public class Tank {
 
     private Boolean moving = false;
 
+    private TankFrame tankFrame = null;
 
-    public Tank(int x, int y, Dir dir) {
+
+    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tankFrame = tankFrame;
     }
 
     public void paint(Graphics g) {
@@ -51,6 +54,7 @@ public class Tank {
                 y += SPEED;
                 break;
         }
+
     }
 
     public int getX() {
@@ -97,5 +101,12 @@ public class Tank {
                 ", dir=" + dir +
                 ", moving=" + moving +
                 '}';
+    }
+
+    /**
+     * 打出一发子弹
+     */
+    public void fire() {
+        tankFrame.bullets.add(new Bullet(this.x, this.y , this.dir, this.tankFrame));
     }
 }
