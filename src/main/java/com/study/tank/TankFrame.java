@@ -15,9 +15,11 @@ public class TankFrame extends Frame {
 
     Tank myTank = new Tank(200, 200, Dir.DOWN);
     Bullet bullet = new Bullet(300, 300, Dir.DOWN);
+    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+    Image offScreenImage = null;
 
     public TankFrame() {
-        setSize(800, 600);
+        setSize(GAME_WIDTH, GAME_HEIGHT);
         setResizable(false);
         setTitle("Main War");
         setVisible(true);
@@ -32,6 +34,26 @@ public class TankFrame extends Frame {
         });
     }
 
+    /**
+     * 双缓冲解决闪烁问题
+     */
+    @Override
+    public void update(Graphics g) {
+        if (offScreenImage == null) {
+            offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+        }
+        Graphics graphics = offScreenImage.getGraphics();
+        Color c = graphics.getColor();
+        graphics.setColor(Color.BLACK);
+        graphics.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        graphics.setColor(c);
+        paint(graphics);
+        g.drawImage(offScreenImage, 0, 0, null);
+    }
+
+    /**
+     * 画笔
+     */
     @Override
     public void paint(Graphics g) {
         myTank.paint(g);
@@ -50,8 +72,6 @@ public class TankFrame extends Frame {
 
         /**
          * 按下键盘按键的响应
-         *
-         * @param e
          */
         @Override
         public void keyPressed(KeyEvent e) {
@@ -78,8 +98,6 @@ public class TankFrame extends Frame {
 
         /**
          * 抬起键盘按键的响应
-         *
-         * @param e
          */
         @Override
         public void keyReleased(KeyEvent e) {
