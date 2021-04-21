@@ -4,37 +4,34 @@ import java.awt.*;
 
 /**
  * @author: renjiahui
- * @date: 2021-04-21 21:54
+ * @date: 2021-04-21 22:29
  * @description:
  */
-public class Tank {
+public class Bullet {
+
+    private static final int SPEED = 10;
+
+    private static final int WIDTH = 5, HIGHT = 5;
 
     private int x, y;
 
-    private Dir dir = Dir.DOWN;
+    private Dir dir;
 
-    private static final int SPEED = 5;
-
-    private Boolean moving = false;
-
-
-    public Tank(int x, int y, Dir dir) {
+    public Bullet(int x, int y, Dir dir) {
         this.x = x;
         this.y = y;
         this.dir = dir;
     }
 
     public void paint(Graphics g) {
-        g.fillRect(x, y, 50, 50);
-
+        Color c = g.getColor();
+        g.setColor(Color.RED);
+        g.fillOval(x, y, WIDTH, HIGHT);
+        g.setColor(c);
         move();
     }
 
     private void move() {
-        if (!moving) {
-            return;
-        }
-
         switch (dir) {
             case LEFT:
                 x -= SPEED;
@@ -50,6 +47,7 @@ public class Tank {
                 break;
         }
     }
+
 
     public int getX() {
         return x;
@@ -73,27 +71,5 @@ public class Tank {
 
     public void setDir(Dir dir) {
         this.dir = dir;
-    }
-
-    public static int getSPEED() {
-        return SPEED;
-    }
-
-    public Boolean getMoving() {
-        return moving;
-    }
-
-    public void setMoving(Boolean moving) {
-        this.moving = moving;
-    }
-
-    @Override
-    public String toString() {
-        return "Tank{" +
-                "x=" + x +
-                ", y=" + y +
-                ", dir=" + dir +
-                ", moving=" + moving +
-                '}';
     }
 }
