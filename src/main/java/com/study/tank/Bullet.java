@@ -22,7 +22,7 @@ public class Bullet {
     /**
      * 子弹的高度
      */
-    public static final int HIGHT = ResourceManager.bulletD.getHeight();
+    public static final int HEIGHT = ResourceManager.bulletD.getHeight();
 
     /**
      * 子弹的位置
@@ -34,7 +34,7 @@ public class Bullet {
     /**
      * 子弹是否存活，为了规避子弹创建出来不被销毁
      */
-    private boolean live = true;
+    private boolean living = true;
 
     TankFrame tankFrame = null;
 
@@ -66,7 +66,7 @@ public class Bullet {
     }
 
     private void move() {
-        if (!live) {
+        if (!living) {
             tankFrame.bullets.remove(this);
         }
         switch (dir) {
@@ -86,7 +86,7 @@ public class Bullet {
 
 
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
-            live = false;
+            living = false;
         }
     }
 
@@ -113,5 +113,28 @@ public class Bullet {
 
     public void setDir(Dir dir) {
         this.dir = dir;
+    }
+
+    /**
+     * 判断子弹和坦克是否相交
+     *
+     * @param tank 坦克对象
+     */
+    public void collideWith(Tank tank) {
+        Rectangle rectangle1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
+        Rectangle rectangle2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
+
+        // rectangle1和rectangle2是否相撞
+        if (rectangle1.intersects(rectangle2)) {
+            tank.die();
+            this.die();
+        }
+    }
+
+    /**
+     * 子弹销毁
+     */
+    private void die() {
+        this.living = false;
     }
 }

@@ -10,9 +10,14 @@ import java.awt.*;
 public class Tank {
 
     /**
-     * 坦克的位置
+     * 坦克的左右位置
      */
-    private int x, y;
+    private int x;
+
+    /**
+     * 坦克的上下位置
+     */
+    private int y;
 
     private Dir dir = Dir.DOWN;
 
@@ -38,6 +43,8 @@ public class Tank {
 
     private TankFrame tankFrame = null;
 
+    private Boolean living = true;
+
 
     public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
         this.x = x;
@@ -47,6 +54,11 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
+        if (!living) {
+            // 将坦克移除
+            tankFrame.tanks.remove(this);
+        }
+
         // 加载四个方向的坦克
         switch (dir) {
             case LEFT:
@@ -142,7 +154,14 @@ public class Tank {
 
         // TODO：根据方向改变子弹的位置
         int bulletX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int bullecY = this.y + Tank.HEIGHT / 2 - Bullet.HIGHT / 2;
+        int bullecY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
         tankFrame.bullets.add(new Bullet(bulletX, bullecY, this.dir, this.tankFrame));
+    }
+
+    /**
+     * 坦克销毁
+     */
+    public void die() {
+        this.living = false;
     }
 }
