@@ -42,7 +42,7 @@ public class Tank {
     /**
      * 坦克是否移动
      */
-    private Boolean moving = false;
+    private Boolean moving = true;
 
     private TankFrame tankFrame = null;
 
