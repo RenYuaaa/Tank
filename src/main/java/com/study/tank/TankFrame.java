@@ -15,12 +15,37 @@ import java.util.List;
  */
 public class TankFrame extends Frame {
 
+    /**
+     * 己方坦克
+     */
     Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD, this);
+
+    /**
+     * 子弹
+     */
     List<Bullet> bullets = new ArrayList<Bullet>();
+
+    /**
+     * 子弹
+     */
     Bullet bullet = new Bullet(300, 300, Dir.DOWN, Group.GOOD, this);
+
+    /**
+     * 窗口大小
+     */
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+
     Image offScreenImage = null;
+
+    /**
+     * 敌方坦克
+     */
     List<Tank> tanks = new ArrayList<>();
+
+    /**
+     * 爆炸图
+     */
+    Explode explode = new Explode(100, 100, this);
 
 
     public TankFrame() {
@@ -86,6 +111,8 @@ public class TankFrame extends Frame {
             }
         }
 
+        // 画出爆炸图
+        explode.paint(g);
     }
 
     /**
