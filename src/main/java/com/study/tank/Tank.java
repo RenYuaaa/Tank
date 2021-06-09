@@ -19,6 +19,9 @@ public class Tank {
      */
     private int y;
 
+    /**
+     * 枚举类：方向
+     */
     private Dir dir = Dir.DOWN;
 
     /**
@@ -43,6 +46,9 @@ public class Tank {
 
     private TankFrame tankFrame = null;
 
+    /**
+     * 坦克是否存活
+     */
     private Boolean living = true;
 
 

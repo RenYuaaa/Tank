@@ -29,6 +29,9 @@ public class Bullet {
      */
     private int x, y;
 
+    /**
+     * 枚举类：方向
+     */
     private Dir dir;
 
     /**
