@@ -41,10 +41,13 @@ public class Bullet {
 
     TankFrame tankFrame = null;
 
-    public Bullet(int x, int y, Dir dir, TankFrame tankFrame) {
+    private Group group = Group.BAD;
+
+    public Bullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tankFrame = tankFrame;
     }
 
@@ -118,12 +121,53 @@ public class Bullet {
         this.dir = dir;
     }
 
+    public static int getSPEED() {
+        return SPEED;
+    }
+
+    public static int getWIDTH() {
+        return WIDTH;
+    }
+
+    public static int getHEIGHT() {
+        return HEIGHT;
+    }
+
+    public boolean isLiving() {
+        return living;
+    }
+
+    public void setLiving(boolean living) {
+        this.living = living;
+    }
+
+    public TankFrame getTankFrame() {
+        return tankFrame;
+    }
+
+    public void setTankFrame(TankFrame tankFrame) {
+        this.tankFrame = tankFrame;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     /**
      * 判断子弹和坦克是否相交
      *
      * @param tank 坦克对象
      */
     public void collideWith(Tank tank) {
+
+        // 如果属性相同则不检测
+        if (this.group == tank.getGroup()) {
+            return;
+        }
         Rectangle rectangle1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
         Rectangle rectangle2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
 

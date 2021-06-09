@@ -1,6 +1,7 @@
 package com.study.tank;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * @author: renjiahui
@@ -51,11 +52,19 @@ public class Tank {
      */
     private Boolean living = true;
 
+    /**
+     * 随机数
+     */
+    private Random random = new Random();
 
-    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
+    private Group group = Group.BAD;
+
+
+    public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tankFrame = tankFrame;
     }
 
@@ -105,6 +114,11 @@ public class Tank {
                 break;
         }
 
+        // 地方坦克开火--大于5的时候开火
+        if (random.nextInt(10) > 5) {
+            this.fire();
+        }
+
     }
 
     public int getX() {
@@ -143,6 +157,54 @@ public class Tank {
         this.moving = moving;
     }
 
+    public static int getWIDTH() {
+        return WIDTH;
+    }
+
+    public static void setWIDTH(int WIDTH) {
+        Tank.WIDTH = WIDTH;
+    }
+
+    public static int getHEIGHT() {
+        return HEIGHT;
+    }
+
+    public static void setHEIGHT(int HEIGHT) {
+        Tank.HEIGHT = HEIGHT;
+    }
+
+    public TankFrame getTankFrame() {
+        return tankFrame;
+    }
+
+    public void setTankFrame(TankFrame tankFrame) {
+        this.tankFrame = tankFrame;
+    }
+
+    public Boolean getLiving() {
+        return living;
+    }
+
+    public void setLiving(Boolean living) {
+        this.living = living;
+    }
+
+    public Random getRandom() {
+        return random;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     @Override
     public String toString() {
         return "Tank{" +
@@ -161,7 +223,7 @@ public class Tank {
         // TODO：根据方向改变子弹的位置
         int bulletX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bullecY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tankFrame.bullets.add(new Bullet(bulletX, bullecY, this.dir, this.tankFrame));
+        tankFrame.bullets.add(new Bullet(bulletX, bullecY, this.dir, this.getGroup(), this.tankFrame));
     }
 
     /**
