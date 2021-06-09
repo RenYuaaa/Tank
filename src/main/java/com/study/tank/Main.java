@@ -3,7 +3,7 @@ package com.study.tank;
 /**
  * @author: renjiahui
  * @date: 2021-04-20 1:19
- * @description:
+ * @description: 主类
  */
 public class Main {
 
@@ -25,7 +25,14 @@ public class Main {
 //            }
 //        });
 
+        // 创建自己的坦克
         TankFrame tankFrame = new TankFrame();
+
+        // 创建敌方坦克
+        for (int i = 0; i < 5; i++) {
+            tankFrame.tanks.add(new Tank(50 + i * 80, 200, Dir.DOWN, tankFrame));
+        }
+
         while (true) {
             Thread.sleep(50);
             //repaint方法默认调用paint方法

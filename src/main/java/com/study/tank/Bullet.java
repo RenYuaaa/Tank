@@ -5,18 +5,35 @@ import java.awt.*;
 /**
  * @author: renjiahui
  * @date: 2021-04-21 22:29
- * @description:
+ * @description: 子弹类
  */
 public class Bullet {
 
+    /**
+     * 子弹的速度
+     */
     private static final int SPEED = 10;
 
-    private static final int WIDTH = 5, HIGHT = 5;
+    /**
+     * 子弹的宽度
+     */
+    public static final int WIDTH = ResourceManager.bulletD.getWidth();
 
+    /**
+     * 子弹的高度
+     */
+    public static final int HIGHT = ResourceManager.bulletD.getHeight();
+
+    /**
+     * 子弹的位置
+     */
     private int x, y;
 
     private Dir dir;
 
+    /**
+     * 子弹是否存活，为了规避子弹创建出来不被销毁
+     */
     private boolean live = true;
 
     TankFrame tankFrame = null;
@@ -29,10 +46,22 @@ public class Bullet {
     }
 
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.RED);
-        g.fillOval(x, y, WIDTH, HIGHT);
-        g.setColor(c);
+        // 加载四个方向的子弹
+        switch (dir) {
+            case LEFT:
+                g.drawImage(ResourceManager.bulletL, x, y, null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceManager.bulletR, x, y, null);
+                break;
+            case UP:
+                g.drawImage(ResourceManager.bulletU, x, y, null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceManager.bulletD, x, y, null);
+                break;
+        }
+
         move();
     }
 

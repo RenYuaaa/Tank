@@ -5,21 +5,23 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 
 /**
  * @author: renjiahui
  * @date: 2021-04-20 21:12
- * @description:
+ * @description: 监听
  */
 public class TankFrame extends Frame {
 
-    Tank myTank = new Tank(200, 200, Dir.DOWN, this);
+    Tank myTank = new Tank(200, 400, Dir.DOWN, this);
     List<Bullet> bullets = new ArrayList<Bullet>();
     Bullet bullet = new Bullet(300, 300, Dir.DOWN, this);
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
     Image offScreenImage = null;
+    List<Tank> tanks = new ArrayList<>();
+
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -68,6 +70,10 @@ public class TankFrame extends Frame {
 
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
+        }
+
+        for (int i = 0; i < tanks.size(); i++) {
+            tanks.get(i).paint(g);
         }
 
     }

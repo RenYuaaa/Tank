@@ -5,16 +5,35 @@ import java.awt.*;
 /**
  * @author: renjiahui
  * @date: 2021-04-21 21:54
- * @description:
+ * @description: 坦克类
  */
 public class Tank {
 
+    /**
+     * 坦克的位置
+     */
     private int x, y;
 
     private Dir dir = Dir.DOWN;
 
+    /**
+     * 坦克的速度
+     */
     private static final int SPEED = 5;
 
+    /**
+     * 坦克的宽度
+     */
+    public static int WIDTH = ResourceManager.tankD.getWidth();
+
+    /**
+     * 坦克的高度
+     */
+    public static int HEIGHT = ResourceManager.tankD.getHeight();
+
+    /**
+     * 坦克是否移动
+     */
     private Boolean moving = false;
 
     private TankFrame tankFrame = null;
@@ -28,10 +47,23 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.YELLOW);
-        g.fillRect(x, y, 50, 50);
-        g.setColor(c);
+        // 加载四个方向的坦克
+        switch (dir) {
+            case LEFT:
+                g.drawImage(ResourceManager.tankL, x, y, null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceManager.tankR, x, y, null);
+                break;
+            case UP:
+                g.drawImage(ResourceManager.tankU, x, y, null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceManager.tankD, x, y, null);
+                break;
+        }
+
+
         move();
     }
 
@@ -107,6 +139,10 @@ public class Tank {
      * 打出一发子弹
      */
     public void fire() {
-        tankFrame.bullets.add(new Bullet(this.x, this.y , this.dir, this.tankFrame));
+
+        // TODO：根据方向改变子弹的位置
+        int bulletX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
+        int bullecY = this.y + Tank.HEIGHT / 2 - Bullet.HIGHT / 2;
+        tankFrame.bullets.add(new Bullet(bulletX, bullecY, this.dir, this.tankFrame));
     }
 }
