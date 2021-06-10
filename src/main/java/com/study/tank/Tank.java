@@ -33,12 +33,12 @@ public class Tank {
     /**
      * 坦克的宽度
      */
-    public static int WIDTH = ResourceManager.tankD.getWidth();
+    public static int WIDTH = ResourceManager.goodTankD.getWidth();
 
     /**
      * 坦克的高度
      */
-    public static int HEIGHT = ResourceManager.tankD.getHeight();
+    public static int HEIGHT = ResourceManager.goodTankD.getHeight();
 
     /**
      * 坦克是否移动
@@ -59,6 +59,8 @@ public class Tank {
 
     private Group group = Group.BAD;
 
+    Rectangle rectangle = new Rectangle();
+
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
@@ -66,6 +68,11 @@ public class Tank {
         this.dir = dir;
         this.group = group;
         this.tankFrame = tankFrame;
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = WIDTH;
+        rectangle.height = HEIGHT;
     }
 
     public void paint(Graphics g) {
@@ -74,19 +81,20 @@ public class Tank {
             tankFrame.tanks.remove(this);
         }
 
+
         // 加载四个方向的坦克
         switch (dir) {
             case LEFT:
-                g.drawImage(ResourceManager.tankL, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankL : ResourceManager.badTankL, x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceManager.tankR, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankR : ResourceManager.badTankR, x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceManager.tankU, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankU : ResourceManager.badTankU, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceManager.tankD, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankD : ResourceManager.badTankD, x, y, null);
                 break;
         }
 
@@ -114,6 +122,9 @@ public class Tank {
                 break;
         }
 
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+
         // 地方坦克开火--大于5的时候开火
         if (this.group == Group.BAD && random.nextInt(100) > 95) {
             this.fire();
@@ -124,6 +135,29 @@ public class Tank {
             randomDir();
         }
 
+        // 边界检测
+        boundsCheck();
+    }
+
+    /**
+     * 坦克的边界检测
+     */
+    private void boundsCheck() {
+        if (this.x < 0) {
+            x = 2;
+        }
+
+        if (this.y < 28) {
+            y = 28;
+        }
+
+        if (this.x > TankFrame.GAME_WIDTH - Tank.WIDTH - 2) {
+            x = TankFrame.GAME_WIDTH - Tank.WIDTH - 2;
+        }
+
+        if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2) {
+            y = TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2;
+        }
     }
 
     /**

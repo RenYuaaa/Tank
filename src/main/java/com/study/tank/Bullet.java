@@ -41,7 +41,12 @@ public class Bullet {
 
     TankFrame tankFrame = null;
 
+    /**
+     * 分组，区分敌我坦克用
+     */
     private Group group = Group.BAD;
+
+    Rectangle rectangle = new Rectangle();
 
     public Bullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
@@ -49,6 +54,12 @@ public class Bullet {
         this.dir = dir;
         this.group = group;
         this.tankFrame = tankFrame;
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = WIDTH;
+        rectangle.height = HEIGHT;
+
     }
 
     public void paint(Graphics g) {
@@ -90,6 +101,8 @@ public class Bullet {
                 break;
         }
 
+        rectangle.x = this.x;
+        rectangle.y = this.y;
 
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
             living = false;
@@ -168,11 +181,9 @@ public class Bullet {
         if (this.group == tank.getGroup()) {
             return;
         }
-        Rectangle rectangle1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
-        Rectangle rectangle2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
 
         // rectangle1和rectangle2是否相撞
-        if (rectangle1.intersects(rectangle2)) {
+        if (rectangle.intersects(tank.rectangle)) {
             tank.die();
             this.die();
 
