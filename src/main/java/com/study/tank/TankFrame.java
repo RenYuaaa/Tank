@@ -33,7 +33,7 @@ public class TankFrame extends Frame {
     /**
      * 窗口大小
      */
-    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+    static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
     Image offScreenImage = null;
 
@@ -43,9 +43,9 @@ public class TankFrame extends Frame {
     List<Tank> tanks = new ArrayList<>();
 
     /**
-     * 爆炸图
+     * 爆炸图的集合
      */
-    Explode explode = new Explode(100, 100, this);
+    List<Explode> explodes = new ArrayList();
 
 
     public TankFrame() {
@@ -104,6 +104,12 @@ public class TankFrame extends Frame {
             tanks.get(i).paint(g);
         }
 
+        // 画出爆炸图
+        for (int i = 0; i < explodes.size(); i++) {
+            explodes.get(i).paint(g);
+        }
+
+
         // 判断和子弹和坦克做碰撞
         for (int i = 0; i < bullets.size(); i++) {
             for (int j = 0; j < tanks.size(); j++) {
@@ -111,8 +117,6 @@ public class TankFrame extends Frame {
             }
         }
 
-        // 画出爆炸图
-        explode.paint(g);
     }
 
     /**

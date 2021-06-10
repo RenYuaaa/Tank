@@ -115,10 +115,22 @@ public class Tank {
         }
 
         // 地方坦克开火--大于5的时候开火
-        if (random.nextInt(10) > 5) {
+        if (this.group == Group.BAD && random.nextInt(100) > 95) {
             this.fire();
         }
 
+        // 地方坦克随机向一个方向移动
+        if (this.group == Group.BAD && random.nextInt(100) > 95) {
+            randomDir();
+        }
+
+    }
+
+    /**
+     * 敌人坦克随机向一个方向转动
+     */
+    private void randomDir() {
+        this.dir = Dir.values()[random.nextInt(4)];
     }
 
     public int getX() {

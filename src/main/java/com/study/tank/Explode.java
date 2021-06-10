@@ -43,7 +43,8 @@ public class Explode {
         g.drawImage(ResourceManager.explodes[step++], x, y, null);
 
         if (step >= ResourceManager.explodes.length) {
-            step = 0;
+            // 爆炸完之后直接去掉改爆炸
+            tankFrame.explodes.remove(this);
         }
     }
 
