@@ -8,28 +8,14 @@ package com.study.tank;
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-//        Frame frame = new Frame();
-//
-//        //设置窗口大小
-//        frame.setSize(800, 600);
-//        //设置标题
-//        frame.setTitle("Main War");
-//        //设置开启窗口
-//        frame.setVisible(true);
-//
-//        //设置关闭窗口的监听器
-//        frame.addWindowListener(new WindowAdapter() {
-//            @Override
-//            public void windowClosing(WindowEvent e) {
-//                System.exit(0);
-//            }
-//        });
 
         // 创建自己的坦克
         TankFrame tankFrame = new TankFrame();
 
+        int initTankCount = Integer.parseInt((String) PropertiesManager.get("initTankCount"));
+
         // 创建敌方坦克
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < initTankCount; i++) {
             tankFrame.tanks.add(new Tank(50 + i * 80, 200, Dir.DOWN, Group.BAD, tankFrame));
         }
 
