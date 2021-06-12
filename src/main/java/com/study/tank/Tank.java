@@ -122,9 +122,6 @@ public class Tank {
                 break;
         }
 
-        rectangle.x = this.x;
-        rectangle.y = this.y;
-
         // 地方坦克开火--大于5的时候开火
         if (this.group == Group.BAD && random.nextInt(100) > 95) {
             this.fire();
@@ -137,6 +134,10 @@ public class Tank {
 
         // 边界检测
         boundsCheck();
+
+        // 更新rectangle
+        rectangle.x = this.x;
+        rectangle.y = this.y;
     }
 
     /**
