@@ -4,3 +4,7 @@ tankSpeed=5
 bulletSpeed=10
 gameWidth=1080
 gameHeight=720
+
+# fireStrategy
+goodFireStrategy=com.study.tank.fire.FourDirFireStrategy
+badFireStrategy=com.study.tank.fire.DefaultFireStrategy

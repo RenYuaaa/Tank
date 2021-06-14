@@ -1,5 +1,9 @@
 package com.study.tank;
 
+import com.study.tank.fire.DefaultFireStrategy;
+import com.study.tank.fire.FireStrategy;
+import com.study.tank.fire.FourDirFireStrategy;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -61,6 +65,11 @@ public class Tank {
 
     Rectangle rectangle = new Rectangle();
 
+    /**
+     * 默认开火策略
+     */
+    FireStrategy fireStrategy;
+
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
@@ -73,6 +82,21 @@ public class Tank {
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
+
+        if (group == Group.GOOD) {
+            String goodFireStrategy = (String) PropertiesManager.get("goodFireStrategy");
+            try {
+                fireStrategy = (FireStrategy) Class.forName(goodFireStrategy).newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            fireStrategy = new DefaultFireStrategy();
+        }
     }
 
     public void paint(Graphics g) {
@@ -266,11 +290,7 @@ public class Tank {
      * 打出一发子弹
      */
     public void fire() {
-
-        // TODO：根据方向改变子弹的位置
-        int bulletX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int bullecY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tankFrame.bullets.add(new Bullet(bulletX, bullecY, this.dir, this.getGroup(), this.tankFrame));
+        fireStrategy.fire(this);
     }
 
     /**

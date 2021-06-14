@@ -60,6 +60,8 @@ public class Bullet {
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
+        tankFrame.bullets.add(this);
+
     }
 
     public void paint(Graphics g) {
