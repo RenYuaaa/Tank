@@ -19,7 +19,15 @@ public class Main {
 //        sorter.sort(a);
 
         Sorter<Dog> sorter = new Sorter<>();
-        sorter.sort(a, new DogComparator());
+        sorter.sort(a, (o1, o2) -> {
+            if (o1.food < o2.food) {
+                return -1;
+            } else if (o1.food > o2.food) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
 
 
         System.out.println(Arrays.toString(a));
