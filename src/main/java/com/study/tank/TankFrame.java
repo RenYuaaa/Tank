@@ -1,11 +1,13 @@
 package com.study.tank;
 
+import com.study.tank.abstractfactory.*;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +25,7 @@ public class TankFrame extends Frame {
     /**
      * 子弹
      */
-    List<Bullet> bullets = new ArrayList<Bullet>();
+    public List<BaseBullet> bullets = new ArrayList<>();
 
     /**
      * 子弹
@@ -33,19 +35,21 @@ public class TankFrame extends Frame {
     /**
      * 窗口大小
      */
-    static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
+    public static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
     Image offScreenImage = null;
 
     /**
      * 敌方坦克
      */
-    List<Tank> tanks = new ArrayList<>();
+    public List<BaseTank> tanks = new ArrayList<>();
 
     /**
      * 爆炸图的集合
      */
-    List<Explode> explodes = new ArrayList();
+    public List<BaseExplode> explodes = new ArrayList();
+
+    public GameFactory gameFactory = new DefaultFactory();
 
 
     public TankFrame() {

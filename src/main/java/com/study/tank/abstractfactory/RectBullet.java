@@ -1,7 +1,6 @@
-package com.study.tank;
+package com.study.tank.abstractfactory;
 
-import com.study.tank.abstractfactory.BaseBullet;
-import com.study.tank.abstractfactory.BaseTank;
+import com.study.tank.*;
 
 import java.awt.*;
 
@@ -10,7 +9,7 @@ import java.awt.*;
  * @date: 2021-04-21 22:29
  * @description: 子弹类
  */
-public class Bullet extends BaseBullet {
+public class RectBullet extends BaseBullet {
 
     /**
      * 子弹的速度
@@ -51,7 +50,7 @@ public class Bullet extends BaseBullet {
 
     Rectangle rectangle = new Rectangle();
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+    public RectBullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -69,22 +68,15 @@ public class Bullet extends BaseBullet {
 
     @Override
     public void paint(Graphics g) {
-        // 加载四个方向的子弹
-        switch (dir) {
-            case LEFT:
-                g.drawImage(ResourceManager.bulletL, x, y, null);
-                break;
-            case RIGHT:
-                g.drawImage(ResourceManager.bulletR, x, y, null);
-                break;
-            case UP:
-                g.drawImage(ResourceManager.bulletU, x, y, null);
-                break;
-            case DOWN:
-                g.drawImage(ResourceManager.bulletD, x, y, null);
-                break;
+        if (!living) {
+            tankFrame.bullets.remove(this);
         }
 
+        // 加载四个方向的子弹
+        Color c = g.getColor();
+        g.setColor(Color.YELLOW);
+        g.fillRect(x, y, 20, 20);
+        g.setColor(c);
         move();
     }
 
