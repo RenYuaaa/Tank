@@ -1,5 +1,7 @@
 package com.study.tank;
 
+import com.study.tank.abstractfactory.BaseBullet;
+
 import java.awt.*;
 
 /**
@@ -7,7 +9,7 @@ import java.awt.*;
  * @date: 2021-04-21 22:29
  * @description: 子弹类
  */
-public class Bullet {
+public class Bullet extends BaseBullet {
 
     /**
      * 子弹的速度
@@ -64,6 +66,7 @@ public class Bullet {
 
     }
 
+    @Override
     public void paint(Graphics g) {
         // 加载四个方向的子弹
         switch (dir) {

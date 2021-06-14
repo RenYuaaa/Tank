@@ -1,5 +1,7 @@
 package com.study.tank;
 
+import com.study.tank.abstractfactory.BaseExplode;
+
 import java.awt.*;
 
 /**
@@ -7,7 +9,7 @@ import java.awt.*;
  * @date: 2021-06-10 0:31
  * @description:
  */
-public class Explode {
+public class Explode extends BaseExplode {
 
     /**
      * 爆炸图的宽度
@@ -38,6 +40,7 @@ public class Explode {
 //        new Audio("audio/explode.wav").play();
     }
 
+    @Override
     public void paint(Graphics g) {
         // 画爆炸图
         g.drawImage(ResourceManager.explodes[step++], x, y, null);

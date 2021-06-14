@@ -1,8 +1,8 @@
 package com.study.tank;
 
+import com.study.tank.abstractfactory.BaseTank;
 import com.study.tank.fire.DefaultFireStrategy;
 import com.study.tank.fire.FireStrategy;
-import com.study.tank.fire.FourDirFireStrategy;
 
 import java.awt.*;
 import java.util.Random;
@@ -12,7 +12,7 @@ import java.util.Random;
  * @date: 2021-04-21 21:54
  * @description: 坦克类
  */
-public class Tank {
+public class Tank extends BaseTank {
 
     /**
      * 坦克的左右位置
@@ -99,6 +99,7 @@ public class Tank {
         }
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!living) {
             // 将坦克移除
