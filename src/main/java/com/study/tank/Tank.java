@@ -1,8 +1,9 @@
 package com.study.tank;
 
+import com.study.tank.facade.GameModel;
 import com.study.tank.fire.DefaultFireStrategy;
 import com.study.tank.fire.FireStrategy;
-import com.study.tank.fire.FourDirFireStrategy;
+import com.study.tank.mediator.GameObject;
 
 import java.awt.*;
 import java.util.Random;
@@ -12,7 +13,7 @@ import java.util.Random;
  * @date: 2021-04-21 21:54
  * @description: 坦克类
  */
-public class Tank {
+public class Tank extends GameObject {
 
     /**
      * 坦克的左右位置
@@ -103,10 +104,11 @@ public class Tank {
         }
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!living) {
             // 将坦克移除
-            gameModel.tanks.remove(this);
+            gameModel.remove(this);
         }
 
 
@@ -319,4 +321,5 @@ public class Tank {
     public void die() {
         this.living = false;
     }
+
 }

@@ -1,5 +1,8 @@
 package com.study.tank;
 
+import com.study.tank.facade.GameModel;
+import com.study.tank.mediator.GameObject;
+
 import java.awt.*;
 
 /**
@@ -7,7 +10,7 @@ import java.awt.*;
  * @date: 2021-04-21 22:29
  * @description: 子弹类
  */
-public class Bullet {
+public class Bullet extends GameObject {
 
     /**
      * 子弹的速度
@@ -61,10 +64,11 @@ public class Bullet {
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        gameModel.bullets.add(this);
+        gameModel.add(this);
 
     }
 
+    @Override
     public void paint(Graphics g) {
         // 加载四个方向的子弹
         switch (dir) {
@@ -87,7 +91,7 @@ public class Bullet {
 
     private void move() {
         if (!living) {
-            gameModel.bullets.remove(this);
+            gameModel.remove(this);
         }
         switch (dir) {
             case LEFT:
@@ -186,11 +190,11 @@ public class Bullet {
      *
      * @param tank 坦克对象
      */
-    public void collideWith(Tank tank) {
+    public boolean collideWith(Tank tank) {
 
         // 如果属性相同则不检测
         if (this.group == tank.getGroup()) {
-            return;
+            return false;
         }
 
         // rectangle1和rectangle2是否相撞
@@ -200,8 +204,10 @@ public class Bullet {
 
             int explodeX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
             int explodeY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            gameModel.explodes.add(new Explode(explodeX, explodeY, gameModel));
+            gameModel.add(new Explode(explodeX, explodeY, gameModel));
+            return true;
         }
+        return false;
     }
 
     /**

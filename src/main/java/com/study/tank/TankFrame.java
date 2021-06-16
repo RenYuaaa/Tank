@@ -1,5 +1,7 @@
 package com.study.tank;
 
+import com.study.tank.facade.GameModel;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
