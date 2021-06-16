@@ -32,7 +32,7 @@ public class Tank {
     /**
      * 坦克的速度
      */
-    private static final int SPEED = 5;
+    private static final int SPEED = 2;
 
     /**
      * 坦克的宽度
@@ -49,7 +49,6 @@ public class Tank {
      */
     private Boolean moving = true;
 
-    private TankFrame tankFrame = null;
 
     /**
      * 坦克是否存活
@@ -70,13 +69,18 @@ public class Tank {
      */
     FireStrategy fireStrategy;
 
+    /**
+     * 游戏模型-facade
+     */
+    GameModel gameModel = null;
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+
+    public Tank(int x, int y, Dir dir, Group group, GameModel gameModel) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
@@ -102,7 +106,7 @@ public class Tank {
     public void paint(Graphics g) {
         if (!living) {
             // 将坦克移除
-            tankFrame.tanks.remove(this);
+            gameModel.tanks.remove(this);
         }
 
 
@@ -244,12 +248,28 @@ public class Tank {
         Tank.HEIGHT = HEIGHT;
     }
 
-    public TankFrame getTankFrame() {
-        return tankFrame;
+    public Rectangle getRectangle() {
+        return rectangle;
     }
 
-    public void setTankFrame(TankFrame tankFrame) {
-        this.tankFrame = tankFrame;
+    public void setRectangle(Rectangle rectangle) {
+        this.rectangle = rectangle;
+    }
+
+    public FireStrategy getFireStrategy() {
+        return fireStrategy;
+    }
+
+    public void setFireStrategy(FireStrategy fireStrategy) {
+        this.fireStrategy = fireStrategy;
+    }
+
+    public GameModel getGameModel() {
+        return gameModel;
+    }
+
+    public void setGameModel(GameModel gameModel) {
+        this.gameModel = gameModel;
     }
 
     public Boolean getLiving() {

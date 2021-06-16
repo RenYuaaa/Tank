@@ -24,17 +24,17 @@ public class Explode {
      */
     private int x, y;
 
-    TankFrame tankFrame;
+    GameModel gameModel = null;
 
     /**
      * 第几步
      */
     private int step = 0;
 
-    public Explode(int x, int y, TankFrame tankFrame) {
+    public Explode(int x, int y, GameModel gameModel) {
         this.x = x;
         this.y = y;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
 //        new Audio("audio/explode.wav").play();
     }
 
@@ -44,7 +44,7 @@ public class Explode {
 
         if (step >= ResourceManager.explodes.length) {
             // 爆炸完之后直接去掉改爆炸
-            tankFrame.explodes.remove(this);
+            gameModel.explodes.remove(this);
         }
     }
 

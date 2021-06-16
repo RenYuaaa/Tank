@@ -39,7 +39,6 @@ public class Bullet {
      */
     private boolean living = true;
 
-    TankFrame tankFrame = null;
 
     /**
      * 分组，区分敌我坦克用
@@ -48,19 +47,21 @@ public class Bullet {
 
     Rectangle rectangle = new Rectangle();
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+    GameModel gameModel = null;
+
+    public Bullet(int x, int y, Dir dir, Group group, GameModel gameModel) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        tankFrame.bullets.add(this);
+        gameModel.bullets.add(this);
 
     }
 
@@ -86,7 +87,7 @@ public class Bullet {
 
     private void move() {
         if (!living) {
-            tankFrame.bullets.remove(this);
+            gameModel.bullets.remove(this);
         }
         switch (dir) {
             case LEFT:
@@ -156,12 +157,20 @@ public class Bullet {
         this.living = living;
     }
 
-    public TankFrame getTankFrame() {
-        return tankFrame;
+    public Rectangle getRectangle() {
+        return rectangle;
     }
 
-    public void setTankFrame(TankFrame tankFrame) {
-        this.tankFrame = tankFrame;
+    public void setRectangle(Rectangle rectangle) {
+        this.rectangle = rectangle;
+    }
+
+    public GameModel getGameModel() {
+        return gameModel;
+    }
+
+    public void setGameModel(GameModel gameModel) {
+        this.gameModel = gameModel;
     }
 
     public Group getGroup() {
@@ -191,7 +200,7 @@ public class Bullet {
 
             int explodeX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
             int explodeY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            tankFrame.explodes.add(new Explode(explodeX, explodeY, tankFrame));
+            gameModel.explodes.add(new Explode(explodeX, explodeY, gameModel));
         }
     }
 

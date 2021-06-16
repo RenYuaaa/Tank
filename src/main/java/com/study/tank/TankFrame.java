@@ -5,30 +5,15 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.*;
-import java.util.List;
 
 /**
  * @author: renjiahui
  * @date: 2021-04-20 21:12
- * @description: 监听
+ * @description: 显示窗口
  */
 public class TankFrame extends Frame {
 
-    /**
-     * 己方坦克
-     */
-    Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD, this);
-
-    /**
-     * 子弹
-     */
-    List<Bullet> bullets = new ArrayList<Bullet>();
-
-    /**
-     * 子弹
-     */
-    Bullet bullet = new Bullet(300, 300, Dir.DOWN, Group.GOOD, this);
+    GameModel gameModel = new GameModel();
 
     /**
      * 窗口大小
@@ -37,15 +22,6 @@ public class TankFrame extends Frame {
 
     Image offScreenImage = null;
 
-    /**
-     * 敌方坦克
-     */
-    List<Tank> tanks = new ArrayList<>();
-
-    /**
-     * 爆炸图的集合
-     */
-    List<Explode> explodes = new ArrayList();
 
 
     public TankFrame() {
@@ -86,37 +62,7 @@ public class TankFrame extends Frame {
      */
     @Override
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.WHITE);
-        g.drawString("子弹的数量: " + bullets.size(), 10, 60);
-        g.drawString("敌人的数量: " + tanks.size(), 10, 80);
-        g.setColor(c);
-
-        myTank.paint(g);
-
-        // 子弹
-        for (int i = 0; i < bullets.size(); i++) {
-            bullets.get(i).paint(g);
-        }
-
-        // 地方坦克
-        for (int i = 0; i < tanks.size(); i++) {
-            tanks.get(i).paint(g);
-        }
-
-        // 画出爆炸图
-        for (int i = 0; i < explodes.size(); i++) {
-            explodes.get(i).paint(g);
-        }
-
-
-        // 判断和子弹和坦克做碰撞
-        for (int i = 0; i < bullets.size(); i++) {
-            for (int j = 0; j < tanks.size(); j++) {
-                bullets.get(i).collideWith(tanks.get(j));
-            }
-        }
-
+        gameModel.paint(g);
     }
 
     /**
@@ -149,7 +95,7 @@ public class TankFrame extends Frame {
                     bD = true;
                     break;
                 case KeyEvent.VK_SPACE:
-                    myTank.fire();
+                    gameModel.getMainTank().fire();
                     break;
                 default:
                     break;
@@ -188,6 +134,7 @@ public class TankFrame extends Frame {
          * 创建主战坦克的方向
          */
         private void setMainTankDir() {
+            Tank myTank = gameModel.getMainTank();
 
             if (!bL && !bU && !bR && !bD) {
                 myTank.setMoving(false);
