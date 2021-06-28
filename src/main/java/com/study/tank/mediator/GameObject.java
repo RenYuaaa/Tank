@@ -12,7 +12,7 @@ public abstract class GameObject {
     /**
      * 位置
      */
-    int x, y;
+    public int x, y;
 
     public abstract void paint(Graphics graphics);
 }

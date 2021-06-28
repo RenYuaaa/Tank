@@ -63,6 +63,11 @@ public class Tank extends GameObject {
 
     private Group group = Group.BAD;
 
+    /**
+     * 上一步的位置
+     */
+    int oldX, oldY;
+
     Rectangle rectangle = new Rectangle();
 
     /**
@@ -70,18 +75,11 @@ public class Tank extends GameObject {
      */
     FireStrategy fireStrategy;
 
-    /**
-     * 游戏模型-facade
-     */
-    GameModel gameModel = null;
-
-
-    public Tank(int x, int y, Dir dir, Group group, GameModel gameModel) {
+    public Tank(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gameModel = gameModel;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
@@ -92,23 +90,21 @@ public class Tank extends GameObject {
             String goodFireStrategy = (String) PropertiesManager.get("goodFireStrategy");
             try {
                 fireStrategy = (FireStrategy) Class.forName(goodFireStrategy).newInstance();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
             fireStrategy = new DefaultFireStrategy();
         }
+
+        GameModel.getInstance().add(this);
     }
 
     @Override
     public void paint(Graphics g) {
         if (!living) {
             // 将坦克移除
-            gameModel.remove(this);
+            GameModel.getInstance().remove(this);
         }
 
 
@@ -132,7 +128,16 @@ public class Tank extends GameObject {
         move();
     }
 
+    public void back() {
+        x = oldX;
+        y = oldY;
+    }
+
     private void move() {
+        // 记录tank移动前的位置
+        oldX = x;
+        oldY = y;
+
         if (!moving) {
             return;
         }
@@ -264,14 +269,6 @@ public class Tank extends GameObject {
 
     public void setFireStrategy(FireStrategy fireStrategy) {
         this.fireStrategy = fireStrategy;
-    }
-
-    public GameModel getGameModel() {
-        return gameModel;
-    }
-
-    public void setGameModel(GameModel gameModel) {
-        this.gameModel = gameModel;
     }
 
     public Boolean getLiving() {

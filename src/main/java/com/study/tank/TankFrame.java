@@ -15,7 +15,7 @@ import java.awt.event.WindowEvent;
  */
 public class TankFrame extends Frame {
 
-    GameModel gameModel = new GameModel();
+    GameModel gameModel = GameModel.getInstance();
 
     /**
      * 窗口大小

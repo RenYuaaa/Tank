@@ -27,18 +27,16 @@ public class Explode extends GameObject {
      */
     private int x, y;
 
-    GameModel gameModel = null;
-
     /**
      * 第几步
      */
     private int step = 0;
 
-    public Explode(int x, int y, GameModel gameModel) {
+    public Explode(int x, int y) {
         this.x = x;
         this.y = y;
-        this.gameModel = gameModel;
 //        new Audio("audio/explode.wav").play();
+        GameModel.getInstance().add(this);
     }
 
     @Override
@@ -48,7 +46,7 @@ public class Explode extends GameObject {
 
         if (step >= ResourceManager.explodes.length) {
             // 爆炸完之后直接去掉改爆炸
-            gameModel.remove(this);
+            GameModel.getInstance().remove(this);
         }
     }
 

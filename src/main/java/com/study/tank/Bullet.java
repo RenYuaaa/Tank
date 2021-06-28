@@ -50,21 +50,19 @@ public class Bullet extends GameObject {
 
     Rectangle rectangle = new Rectangle();
 
-    GameModel gameModel = null;
 
-    public Bullet(int x, int y, Dir dir, Group group, GameModel gameModel) {
+    public Bullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gameModel = gameModel;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        gameModel.add(this);
+        GameModel.getInstance().add(this);
 
     }
 
@@ -91,7 +89,7 @@ public class Bullet extends GameObject {
 
     private void move() {
         if (!living) {
-            gameModel.remove(this);
+            GameModel.getInstance().remove(this);
         }
         switch (dir) {
             case LEFT:
@@ -169,13 +167,6 @@ public class Bullet extends GameObject {
         this.rectangle = rectangle;
     }
 
-    public GameModel getGameModel() {
-        return gameModel;
-    }
-
-    public void setGameModel(GameModel gameModel) {
-        this.gameModel = gameModel;
-    }
 
     public Group getGroup() {
         return group;
@@ -186,34 +177,9 @@ public class Bullet extends GameObject {
     }
 
     /**
-     * 判断子弹和坦克是否相交
-     *
-     * @param tank 坦克对象
-     */
-    public boolean collideWith(Tank tank) {
-
-        // 如果属性相同则不检测
-        if (this.group == tank.getGroup()) {
-            return false;
-        }
-
-        // rectangle1和rectangle2是否相撞
-        if (rectangle.intersects(tank.rectangle)) {
-            tank.die();
-            this.die();
-
-            int explodeX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
-            int explodeY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            gameModel.add(new Explode(explodeX, explodeY, gameModel));
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * 子弹销毁
      */
-    private void die() {
+    public void die() {
         this.living = false;
     }
 }

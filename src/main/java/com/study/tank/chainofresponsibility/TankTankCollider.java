@@ -24,8 +24,8 @@ public class TankTankCollider implements Collider {
 
             // 应该将collideWith方法的代码移到这里
             if (tank1.getRectangle().intersects(tank2.getRectangle())) {
-                tank1.setMoving(false);
-                tank2.setMoving(false);
+                tank1.back();
+                tank2.back();
             }
         }
         return true;
