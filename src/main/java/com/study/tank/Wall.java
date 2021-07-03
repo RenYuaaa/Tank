@@ -11,24 +11,26 @@ import java.awt.*;
  */
 public class Wall extends GameObject {
 
-    int weight, height;
+    int WIDTH;
+
+    int HEIGHT;
 
     public Rectangle rectangle;
 
-    public int getWeight() {
-        return weight;
+    public int getWIDTH() {
+        return WIDTH;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
+    public void setWIDTH(int WIDTH) {
+        this.WIDTH = WIDTH;
     }
 
-    public int getHeight() {
-        return height;
+    public int getHEIGHT() {
+        return HEIGHT;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
+    public void setHEIGHT(int HEIGHT) {
+        this.HEIGHT = HEIGHT;
     }
 
     public Rectangle getRectangle() {
@@ -39,20 +41,30 @@ public class Wall extends GameObject {
         this.rectangle = rectangle;
     }
 
-    public Wall(int x, int y, int weight, int height) {
+    public Wall(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
-        this.weight = weight;
-        this.height = height;
+        this.WIDTH = width;
+        this.HEIGHT = height;
 
-        this.rectangle = new Rectangle(x, y, weight, height);
+        this.rectangle = new Rectangle(x, y, width, height);
     }
 
     @Override
     public void paint(Graphics graphics) {
         Color color = graphics.getColor();
         graphics.setColor(Color.DARK_GRAY);
-        graphics.fillRect(x, y, weight, height);
+        graphics.fillRect(x, y, WIDTH, HEIGHT);
         graphics.setColor(color);
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 }

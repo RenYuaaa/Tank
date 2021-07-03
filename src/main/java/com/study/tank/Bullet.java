@@ -28,11 +28,6 @@ public class Bullet extends GameObject {
     public static final int HEIGHT = ResourceManager.bulletD.getHeight();
 
     /**
-     * 子弹的位置
-     */
-    private int x, y;
-
-    /**
      * 枚举类：方向
      */
     private Dir dir;
@@ -87,6 +82,16 @@ public class Bullet extends GameObject {
         move();
     }
 
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
+    }
+
     private void move() {
         if (!living) {
             GameModel.getInstance().remove(this);
@@ -112,23 +117,6 @@ public class Bullet extends GameObject {
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
             living = false;
         }
-    }
-
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     public Dir getDir() {

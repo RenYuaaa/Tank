@@ -23,11 +23,6 @@ public class Explode extends GameObject {
     public static int HEIGHT = ResourceManager.explodes[0].getHeight();
 
     /**
-     * 爆炸图的位置
-     */
-    private int x, y;
-
-    /**
      * 第几步
      */
     private int step = 0;
@@ -48,6 +43,16 @@ public class Explode extends GameObject {
             // 爆炸完之后直接去掉改爆炸
             GameModel.getInstance().remove(this);
         }
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
 

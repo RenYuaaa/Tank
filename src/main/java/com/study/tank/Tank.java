@@ -16,16 +16,6 @@ import java.util.Random;
 public class Tank extends GameObject {
 
     /**
-     * 坦克的左右位置
-     */
-    private int x;
-
-    /**
-     * 坦克的上下位置
-     */
-    private int y;
-
-    /**
      * 枚举类：方向
      */
     private Dir dir = Dir.DOWN;
@@ -126,6 +116,16 @@ public class Tank extends GameObject {
 
 
         move();
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
     public void back() {
