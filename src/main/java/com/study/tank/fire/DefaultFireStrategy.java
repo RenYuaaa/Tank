@@ -2,9 +2,6 @@ package com.study.tank.fire;
 
 import com.study.tank.Bullet;
 import com.study.tank.Tank;
-import com.study.tank.decorator.RectDecorator;
-import com.study.tank.decorator.TailDecorator;
-import com.study.tank.facade.GameModel;
 
 /**
  * @author: renjiahui
@@ -20,7 +17,8 @@ public class DefaultFireStrategy implements FireStrategy {
         int bullecY = tank.getY() + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
 
         // TODO: BUG--new Bullet() 把自己又加了一遍
-        GameModel.getInstance().add(new RectDecorator(new TailDecorator((new Bullet(bulletX, bullecY, tank.getDir(), tank.getGroup())))));
+//        GameModel.getInstance().add(new RectDecorator(new TailDecorator((new Bullet(bulletX, bullecY, tank.getDir(), tank.getGroup())))));
+        new Bullet(bulletX, bullecY, tank.getDir(), tank.getGroup());
 
     }
 }
