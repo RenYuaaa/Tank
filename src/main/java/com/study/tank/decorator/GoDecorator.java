@@ -7,7 +7,7 @@ import java.awt.*;
 /**
  * @author: renjiahui
  * @date: 2021-07-03 16:23
- * @description:
+ * @description: 装饰者模式
  */
 public abstract class GoDecorator extends GameObject {
 
