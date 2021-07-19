@@ -68,7 +68,7 @@ public class TankFrame extends Frame {
     }
 
     /**
-     * 键盘的监听处理类
+     * 键盘的监听处理类--观察者模式
      */
     class MyKeyListener extends KeyAdapter {
 
