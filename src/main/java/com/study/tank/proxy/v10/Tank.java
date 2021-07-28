@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * @author: renjiahui
  * @date: 2021-07-27 23:41
- * @description:
+ * @description: 通过反射
  */
 public class Tank implements Movable {
 

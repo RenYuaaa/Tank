@@ -70,6 +70,14 @@ class LogHander implements InvocationHandler {
         this.tank = tank;
     }
 
+    /**
+     *
+     * @param proxy 生成的代理对象--$Proxy0方法
+     * @param method 调用的方法--move方法
+     * @param args 调用的方法的参数
+     * @return 因为move方法的返回值是null，所以invoke的返回值是空值
+     * @throws Throwable
+     */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         System.out.println("method: " + method.getName() + " start...");

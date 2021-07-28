@@ -29,7 +29,7 @@ public class TankFrame extends Frame {
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
         setResizable(false);
-        setTitle("Main War");
+        setTitle("Tank War");
         setVisible(true);
 
         //对键盘的监听处理
