@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="tank" class="com.study.tank.spring.v1.Tank"/>
+    <bean id="timeProxy" class="com.study.tank.spring.v1.TimeProxy"/>
+
+
+<!--    <aop:config>-->
+<!--        <aop:aspect id="time" ref="timeProxy">-->
+<!--            <aop:pointcut id="myPointCut" expression="execution(void com.study.tank.spring.v1.Tank.move())"/>-->
+
+<!--            &lt;!&ndash; 表示beforeAdvice会把切面类handler中的beforeTest方法织入到名字叫myPointCut的切入点上面 &ndash;&gt;　　-->
+<!--            <aop:before method="before" pointcut-ref="myPointCut"/>-->
+
+<!--            &lt;!&ndash; after表示不管方法是否正常结束都会起作用 &ndash;&gt;　　　　-->
+<!--            <aop:after method="after" pointcut-ref="myPointCut"/>-->
+
+<!--            &lt;!&ndash; after-returning表示方法正常结束才会起作用(抛异常时候不起作用) &ndash;&gt;　　　　-->
+<!--            &lt;!&ndash;            <aop:after-returning method="afterReturningTest" pointcut-ref="myPointCut"/>&ndash;&gt;-->
+
+<!--            &lt;!&ndash;            <aop:around method="aroundTest" pointcut-ref="myPointCut"/>&ndash;&gt;-->
+
+<!--            &lt;!&ndash; throwing="ex"表示throwingTest方法中接收异常对象的名字一定要是ex &ndash;&gt;　　　　-->
+<!--            &lt;!&ndash;            <aop:after-throwing method="throwingTest" pointcut-ref="myPointCut" throwing="ex"/>&ndash;&gt;-->
+<!--        </aop:aspect>-->
+<!--    </aop:config>-->
+
+    <!-- 里面不能加注释，注释看上面 -->
+    <aop:config>
+        <aop:aspect id="time" ref="timeProxy">
+            <aop:pointcut id="myPointCut" expression="execution(void com.study.tank.spring.v1.Tank.move())"/>
+            <aop:before method="before" pointcut-ref="myPointCut"/>
+            <aop:after method="after" pointcut-ref="myPointCut"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>
