@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * @author: renjiahui
  * @date: 2021-07-11 16:52
- * @description: 记录坦克移动的世家
+ * @description: 记录坦克移动时间
  */
 public class Tank implements Movable {
 

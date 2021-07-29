@@ -18,13 +18,17 @@ import java.util.Random;
  * <p>
  * 问题：如何实现代理的各种组合？继承？Decorator？
  * v07：代理的对象改成Movable类型-越来越像Decorator了
- * v08：如果有stop方法需要代理。。。
+ * v08：如果有stop方法需要代理。。。--动态代理，通过反射生成代理类
  * 如果想让logProxy可以重用，不仅可以代理Tank，还可以代理任何其他可以代理的类型Object
  * 毕竟日志记录，时间计算是很多方法都需要的东西，这是该怎么做呢？
  * 分离代理行为与被代理对象
  * 使用jdk的动态代理
  */
 public class Tank implements Movable {
+
+    /**
+     * Tank--真实主题
+     */
     /**
      * 模拟tank移动了一段时间
      *
@@ -43,20 +47,23 @@ public class Tank implements Movable {
 
 
     public static void main(String[] args) {
-        Tank tank = new Tank();
+        Movable movable1 = new Tank();
 
-//        Movable movable = (Movable) Proxy.newProxyInstance(Tank.class.getClassLoader(),
+//        Movable movable = (Movable) Proxy.newProxyInstance(Movable.class.getClassLoader(),
 //                new Class[]{Movable.class},
 //                (proxy, method, args1) -> {
 //                    System.out.println("method: " + method.getName() + " start...");
-//                    Object invoke = method.invoke(tank, args1);
+//                    Object invoke = method.invoke(movable1, args1);
 //                    System.out.println("method: " + method.getName() + "end!");
 //                    return invoke;
 //                });
 
-        Movable movable = (Movable) Proxy.newProxyInstance(Tank.class.getClassLoader(),
+        /**
+         * 动态代理
+         */
+        Movable movable = (Movable) Proxy.newProxyInstance(Movable.class.getClassLoader(),
                 new Class[]{Movable.class},
-                new LogHander(tank));
+                new LogHander(movable1));
 
         movable.move();
     }
@@ -64,10 +71,10 @@ public class Tank implements Movable {
 
 class LogHander implements InvocationHandler {
 
-    Tank tank;
+    Movable movable;
 
-    public LogHander(Tank tank) {
-        this.tank = tank;
+    public LogHander(Movable movable) {
+        this.movable = movable;
     }
 
     /**
@@ -81,12 +88,15 @@ class LogHander implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         System.out.println("method: " + method.getName() + " start...");
-        Object invoke = method.invoke(tank, args);
+        Object invoke = method.invoke(movable, args);
         System.out.println("method: " + method.getName() + "end!");
         return invoke;
     }
 }
 
+/**
+ * Movable--抽象主题
+ */
 interface Movable {
     void move();
 }
