@@ -1,7 +1,5 @@
 package com.study.tank.iterator.v4;
 
-
-
 /**
  * @author: renjiahui
  * @date: 2021-07-30 0:49
@@ -28,30 +26,5 @@ public class ArrayList_ implements Collection_ {
     @Override
     public int size() {
         return index;
-    }
-
-    @Override
-    public Iterator_ iterator() {
-        return new ArrayListIterator();
-    }
-
-    private class ArrayListIterator implements Iterator_ {
-        private int currentIndex = 0;
-
-
-        @Override
-        public boolean hasNext() {
-            if (currentIndex >= index) {
-                return false;
-            }
-            return true;
-        }
-
-        @Override
-        public Object next() {
-            Object o = objects[currentIndex];
-            currentIndex++;
-            return o;
-        }
     }
 }

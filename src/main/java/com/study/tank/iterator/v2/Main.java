@@ -34,6 +34,7 @@ class LinkedList_ {
 
         if (Objects.isNull(head)) {
             head = node;
+            tail = node;
         }
 
         tail.next = node;

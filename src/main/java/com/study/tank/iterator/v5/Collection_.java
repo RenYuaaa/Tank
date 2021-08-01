@@ -1,4 +1,4 @@
-package com.study.tank.iterator.v4;
+package com.study.tank.iterator.v5;
 
 /**
  * @author: renjiahui
@@ -9,4 +9,6 @@ public interface Collection_ {
     void add(Object o);
 
     int size();
+
+    Iterator_ iterator();
 }

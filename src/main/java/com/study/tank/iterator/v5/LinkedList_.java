@@ -1,4 +1,4 @@
-package com.study.tank.iterator.v4;
+package com.study.tank.iterator.v5;
 
 import java.util.Objects;
 
@@ -8,8 +8,15 @@ import java.util.Objects;
  * @description:
  */
 public class LinkedList_ implements Collection_ {
-    
+
+    /**
+     * 头节点
+     */
     Node head = null;
+
+    /**
+     * 尾节点
+     */
     Node tail = null;
 
     private int size = 0;
@@ -42,4 +49,26 @@ public class LinkedList_ implements Collection_ {
     public int size() {
         return size;
     }
+
+    @Override
+    public Iterator_ iterator() {
+        return new LinkedListIterator();
+    }
+
+    private class LinkedListIterator implements Iterator_ {
+
+        @Override
+        public boolean hasNext() {
+            if (Objects.isNull(tail.next)) {
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        public Object next() {
+            return null;
+        }
+    }
+
 }

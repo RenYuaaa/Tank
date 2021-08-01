@@ -14,12 +14,14 @@ public class LinkedList_ implements Collection_ {
 
     private int size = 0;
 
+    @Override
     public void add(Object o) {
         Node node = new Node(o);
         node.next = null;
 
         if (Objects.isNull(head)) {
             head = node;
+            tail = node;
         }
 
         tail.next = node;
