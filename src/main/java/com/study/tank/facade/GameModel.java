@@ -5,6 +5,7 @@ import com.study.tank.chainofresponsibility.ColliderChain;
 import com.study.tank.mediator.GameObject;
 
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * @date: 2021-06-16 22:29
  * @description: facade-门面模式
  */
-public class GameModel {
+public class GameModel implements Serializable {
 
     private static final GameModel INSTANCE = new GameModel();
 
@@ -52,7 +53,8 @@ public class GameModel {
         return INSTANCE;
     }
 
-    private GameModel() {}
+    private GameModel() {
+    }
 
     /**
      *
@@ -133,4 +135,50 @@ public class GameModel {
     }
 
 
+    /**
+     * 存盘
+     * 通过输出流，将对象保存到硬盘中--相当于保存一个瞬时日志--备忘录模式
+     */
+    public void save() {
+        File file = new File("d:/ideaProject/Tank");
+
+        ObjectOutputStream stream = null;
+        try {
+            stream = new ObjectOutputStream(new FileOutputStream(file));
+            stream.writeObject(myTank);
+            stream.writeObject(gameObjects);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                stream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 读取进度
+     * 备忘录模式--通过输入流，读取硬盘中保存的瞬时文件，将tank变回文件中记录的位置
+     */
+    public void load() {
+        File file = new File("d:/ideaProject/Tank");
+        ObjectInputStream stream = null;
+        try {
+            stream = new ObjectInputStream(new FileInputStream(file));
+            myTank = (Tank) stream.readObject();
+            gameObjects = (List<GameObject>) stream.readObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                stream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

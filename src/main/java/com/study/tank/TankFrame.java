@@ -25,7 +25,6 @@ public class TankFrame extends Frame {
     Image offScreenImage = null;
 
 
-
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
         setResizable(false);
@@ -98,6 +97,12 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_SPACE:
                     gameModel.getMainTank().fire();
+                    break;
+                case KeyEvent.VK_S:
+                    gameModel.save();
+                    break;
+                case KeyEvent.VK_L:
+                    gameModel.load();
                     break;
                 default:
                     break;
