@@ -3,11 +3,9 @@ package com.study.tank.ptotoytype.v2;
 /**
  * @author: renjiahui
  * @date: 2021-08-06 23:22
- * @description: 享元模式--StringBuilder是否会被克隆
- *  克隆Person时，也克隆Location对象，这样person1改变location中的String类型的属性，就不会影响person2中location对象的String类型属性--这种属于深克隆
- *  但如果location中有StringBUilder属性，则改变person1中location对象中的StringBuilder属性，则会影响person2中location对象中的StringBuilder属性。
- *  因此，对Person克隆时，在克隆Location对象后，也要克隆Location对象中的StringBuilder属性
- *
+ * @description: 原型模式、深克隆
+ * Person实现Cloneable接口，并且Location也实现Cloneable接口，当克隆Person时，也克隆Location对象，就实现了深克隆
+ * Location对象中有个String类型的属性，克隆Location对象时，也不会新键String类型的属性，因为String类型有常量池，可以直接在常量池中拿到该属性
  */
 public class Test {
 

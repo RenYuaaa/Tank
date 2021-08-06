@@ -3,7 +3,7 @@ package com.study.tank.ptotoytype.v1;
 /**
  * @author: renjiahui
  * @date: 2021-08-06 23:22
- * @description: 享元模式、浅克隆
+ * @description: 原型模式、浅克隆
  *  当person1对象被clone时，是将person中的int类型数据拿过来，并将Location对象地址指向原有的Location对象，并不复制。
  *  所以当person1改变Location对象中属性的值时，person2取出Location中的值也发生改变---浅克隆
  */
