@@ -6,4 +6,23 @@ package com.study.tank.state.v1;
  * @description:
  */
 public class MM {
+
+    String name;
+
+    private enum MMState {
+        HAPPY,
+        SAD
+    }
+
+    public void smile() {
+
+    }
+
+    public void cry() {
+
+    }
+
+    public void say() {
+
+    }
 }

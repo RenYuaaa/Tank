@@ -1,4 +1,4 @@
-package com.study.tank.state.v1.v2;
+package com.study.tank.state.v2;
 
 /**
  * @author: renjiahui
